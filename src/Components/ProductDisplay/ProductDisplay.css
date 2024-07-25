@@ -13,7 +13,7 @@
 
 }
 .productdisplay-img-list img{
-    height: 163;
+    height: 163px;
 
 }
 .productdisplay-main-img {
@@ -92,4 +92,7 @@
     border: none;
     outline: none;
     cursor: pointer;
+}
+.productdisplay-right-category span {
+    font-weight: 600;
 }
