@@ -15,38 +15,38 @@ function Navbar() {
       </div>
       <ul className="nav-menu">
         <li onClick={() => setMenu("shop")}>
-          <Link class="link" to="/">
+          <Link className="link" to="/">
             Shop
           </Link>{" "}
           {menu === "shop" ? <hr /> : <></>}
         </li>
         <li onClick={() => setMenu("mens")}>
           {" "}
-          <Link class="link" to="/mens">
+          <Link className="link" to="/mens">
             Men
           </Link>{" "}
           {menu === "mens" ? <hr /> : <></>}
         </li>
         <li onClick={() => setMenu("womens")}>
           {" "}
-          <Link class="link" to="/womens">
+          <Link className="link" to="/womens">
             Women
           </Link>{" "}
           {menu === "womens" ? <hr /> : <></>}
         </li>
         <li onClick={() => setMenu("kids")}>
           {" "}
-          <Link class="link" to="/kids">
+          <Link className="link" to="/kids">
             Kids
           </Link>{" "}
           {menu === "kids" ? <hr /> : <></>}
         </li>
       </ul>
       <div className="nav-login-cart">
-        <Link class="link" to="/login">
+        <Link className="link" to="/login">
           <button>Login</button>
         </Link>
-        <Link class="link" to="/cart">
+        <Link className="link" to="/cart">
           <img src={Cart_icon} alt="cart_icon" />
         </Link>
         <div className="nav-cart-count">0</div>
