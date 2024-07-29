@@ -229,7 +229,5 @@
     .nav-cart-count{
         transform: scale(0.7);
     }
-    .nav-login-cart{
-        /* display: none; */
-    }
+    
 }
