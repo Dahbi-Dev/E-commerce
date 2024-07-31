@@ -213,21 +213,49 @@
 @media(max-width:400px) {
     .navbar {
         padding: 4px 0px;
-        gap: 0px;
+        gap: 4px;
         /* margin:  auto; */
+    }
+
+    .nav-logo {
+        transform: scale(0.6);
+    }
+   
+    .nav-cart-count{
+        transform: scale(0.6);
+        margin-right: 25px;
+    }
+   
+
+    .nav-dropdown {
+        width: 25px;
+    }
+    .nav-login-cart button {
+        width: 70px;
+    }
+    
+}
+@media(max-width:350px) {
+    .navbar {
+        padding: 4px 0px;
+        gap:  2px;
+       
+
     }
 
     .nav-logo {
         transform: scale(0.5);
     }
-    /* .nav-menu {
-        height:200px;
-        padding: 10px;
-        top:40px ;
-        display: grid;
-    } */
+   
     .nav-cart-count{
-        transform: scale(0.7);
+        transform: scale(0.6);
+        
+    }
+   
+   
+  
+    .nav-login-cart button {
+        width: 70px;
     }
     
 }

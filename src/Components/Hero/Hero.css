@@ -142,4 +142,27 @@
 
 @media(max-width:500px){
    
+    .hero-left{
+        margin-bottom: 120px;
+        padding: 15px;
+        gap: 30px;
+    }
+    .hero-left h2{
+        font-size: 18px;
+    }
+    .hero-left p{
+       font-size: 50px;  
+    }
+    .hero-hand-icon img {
+        width:70px;
+    }
+    .hero-latest-btn{
+        width: 200px;
+        height:20px;
+         font-size: 15px;
+
+    }
+    .hero-right img {
+        display: none;
+    }
 }
