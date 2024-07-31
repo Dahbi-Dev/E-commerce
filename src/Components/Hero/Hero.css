@@ -156,13 +156,12 @@
     .hero-hand-icon img {
         width:70px;
     }
-    .hero-latest-btn{
-        width: 200px;
-        height:20px;
-         font-size: 15px;
 
+    .hero {
+        flex-direction: column;
     }
-    .hero-right img {
+   
+    .hero-right  {
         display: none;
     }
 }
