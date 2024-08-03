@@ -3,7 +3,7 @@
     height: 60vh;
     display: flex;
     margin: auto;
-    padding: 0px 140px;
+    padding:  120px;
     margin-bottom: 150px;
     background: linear-gradient(180deg, #fde1ff 0%, #e1ffea22 60%);
 }
@@ -115,20 +115,25 @@
 @media(max-width:800px) {
     .offers {
         margin-bottom: 50px;
+        width: fit-content;
        
 
     }
 
     .offers-left h1 {
-        font-size: 22px;
+        font-size: 16px;
+        text-align: center;
     }
 
     .offers-left p {
-        font-size: 14px;
+        max-width: 200px;
+        text-align: center;
+
     }
 
     .offers-right img {
         width: 180px;
+      
     }
 
     .offers-left button {
@@ -142,6 +147,8 @@
     .offers {
         margin-bottom: 50px;
        height: 25vh;
+    
+
 
     }
 

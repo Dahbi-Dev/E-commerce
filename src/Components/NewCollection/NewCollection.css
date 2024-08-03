@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    height: 150vh;
+    height: 170vh;
     
 
 }
@@ -32,10 +32,9 @@
 }
 
 @media(max-width:1280px) {
-    .new-collections {
-        height: 120vh;
-    }
+  
 
+   
     .new-collections h1 {
         font-size: 40px;
     }
@@ -50,6 +49,7 @@
     }
 }
 @media(max-width:1024px) {
+   
     .new-collections {
         height: 100vh;
     }
@@ -86,7 +86,7 @@
 }
 @media(max-width:500px) {
     .new-collections {
-        height: 190vh;
+        height: 200vh;
     }
 
     .collections {

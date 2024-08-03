@@ -66,6 +66,10 @@
 
 }
 
+.hero-right img {
+    width: 450px;
+    margin-bottom:  80px;
+}
 
 
 @media(max-width:1280px){
@@ -136,7 +140,7 @@
 
     }
     .hero-right img {
-        width: 250px;
+        width: 280px;
     }
 }
 

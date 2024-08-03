@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    height: 90vh;
+    height:100vh;
 
 }
 
@@ -85,7 +85,7 @@
 }
 @media(max-width:500px) {
     .popular {
-        height: 95vh;
+        height: 110vh;
     }
 
     .popular-item {
