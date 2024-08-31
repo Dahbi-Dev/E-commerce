@@ -29,3 +29,65 @@
     gap: 30px;
     
 }
+
+@media(max-width:1280px) {
+    .RelatedProducts {
+        height: 70vh;
+    }
+
+    .RelatedProducts h1 {
+        font-size: 40px;
+    }
+
+    .RelatedProducts hr {
+        width: 160px;
+        height: 4px;
+    }
+    .Realated {
+        gap: 20px;
+        margin-top: 30px;
+    }
+}
+@media(max-width:1024px) {
+   
+    .RelatedProducts h1 {
+        font-size: 30px;
+    }
+
+    .RelatedProducts hr {
+        width: 120px;
+        height: 3px;
+    }
+    .Realated {
+        gap: 15px;
+        margin-top: 20px;
+    }
+}
+@media(max-width:800px) {
+    .RelatedProducts {
+        height: 40vh;
+        gap: 6px;
+    }
+
+    .RelatedProducts h1 {
+        font-size: 20px;
+    }
+
+    .RelatedProducts hr {
+        width: 100px;
+    }
+    .Realated {
+        gap: 5px;
+    }
+}
+@media(max-width:500px) {
+    .RelatedProducts {
+        height: 90vh;
+    }
+
+    .Realated {
+        gap: 10px;
+       display: grid;
+       grid-template-columns: 1fr 1fr;
+    }
+}

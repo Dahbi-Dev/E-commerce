@@ -21,7 +21,7 @@
 }
 
 .productdisplay-main-img {
-    width: 586px;
+    width: 566px;
     height: 700px;
 }
 
@@ -257,7 +257,7 @@
     }
 
     .productdisplay-right-description {
-        font-size: 10px;
+        font-size: 15px;
     }
 
     .productdisplay-right-size h1 {
@@ -309,11 +309,31 @@
         height: 330px;
     }
     .productdisplay-right {
-        margin:50px;
+        margin:5px;
     }
     .productdisplay-right h1 {
         margin-top: 15px;
         font-size: 20px;
         font-weight: 500;
     }
+    .productdisplay-right-stars img {
+        width: 15px;
+    }
+    .productdisplay-right-sizes{
+        gap: 10px;
+        margin:20px 0px;
+     }
+     .productdisplay-right-sizes div{
+        padding: 10px 16px;
+        font-size: 14px;
+     }
+     .productdisplay-right button{
+        width: 130px;
+        font-size: 15px 0px;
+        padding: 12px 0px;
+     }
+     .productdisplay-right-category {
+        font-size: 16px;
+     }
+
 }
