@@ -98,9 +98,7 @@
         height: 65px;
 
     }
-    .loginSignup-login{
-        font-size: 16px;
-    }
+   
     .loginSignup-login{
         font-size: 16px;
     }
@@ -110,10 +108,10 @@
 }
 @media(max-width:800px){
     .loginSignup-container{
-        padding: 20px 30px;
+        padding: 30px 50px;
     }
     .loginSignup-container h1{
-        font-size: 24px;
+        font-size: 25px;
     }
     .loginSignup-fields {
         margin-top: 20px;
@@ -123,7 +121,42 @@
     }
     .loginSignup-container button {
         height: 50px;
+        width: 601px;
         font-size: 16px;
+    }
+    .loginSignup-login{
+        font-size: 14px;
+    }
+    .loginSignup-agree{
+        font-size: 14px;
+    }
+   
+}
+@media(max-width:500px){
+    .loginSignup-container{
+        padding: 10px 15px;
+    }
+    .loginSignup-container h1{
+        font-size: 20px;
+    }
+    .loginSignup-fields {
+        margin-top: 15px;
+    }
+    .loginSignup-fields input {
+        height: 40px;
+        width:72%;
+        font-size: 12px;
+    }
+    .loginSignup-container button {
+        height: 50px;
+        font-size: 12px;
+        width:72%;
+    }
+    .loginSignup-login{
+        font-size: 12px;
+    }
+    .loginSignup-agree{
+        font-size: 12px;
     }
    
 }
