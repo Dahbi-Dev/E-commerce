@@ -12,7 +12,7 @@ export default function NewCollection() {
       .then((data) =>  setNew_collection(data));
   }, []);
   return (
-    <div className="new-collections">
+    <div className="new-collections" id="collection">
       <h1>NEW COLLECTIONS</h1>
       <hr />
       <div className="collections">

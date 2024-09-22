@@ -1,93 +1,88 @@
 .RelatedProducts {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 100px;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 100px;
 }
 
 .RelatedProducts h1 {
-    color: #171717;
-    font-size: 50px;
-    font-weight: 600;
-
+  color: #171717;
+  font-size: 50px;
+  font-weight: 600;
 }
 
 .RelatedProducts hr {
-    height: 6px;
-    width: 200px;
-    border-radius: 10px;
-    background: #252525;
-
+  height: 6px;
+  width: 200px;
+  border-radius: 10px;
+  background: #252525;
 }
 
-.Realated{
-    margin-top: 50px;
+.Related  {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 30px;
+}
+
+@media (max-width: 1280px) {
+  .RelatedProducts {
+    height: 70vh;
+  }
+
+  .RelatedProducts h1 {
+    font-size: 40px;
+  }
+
+  .RelatedProducts hr {
+    width: 160px;
+    height: 4px;
+  }
+  .Related  {
+    gap: 20px;
+    margin-top: 30px;
+  }
+}
+@media (max-width: 1024px) {
+  .RelatedProducts h1 {
+    font-size: 30px;
+  }
+
+  .RelatedProducts hr {
+    width: 120px;
+    height: 3px;
+  }
+  .Related  {
+    gap: 15px;
+    margin-top: 20px;
+  }
+}
+@media (max-width: 800px) {
+  .RelatedProducts {
+    height: 40vh;
+    gap: 6px;
+  }
+
+  .RelatedProducts h1 {
+    font-size: 20px;
+  }
+
+  .RelatedProducts hr {
+    width: 100px;
+  }
+  .Related  {
+    gap: 5px;
+  }
+}
+@media (max-width: 500px) {
+  .RelatedProducts {
+    height: 90vh;
+  }
+
+  .Related  {
+    gap: 10px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr; 
-    gap: 30px;
-    
-}
-
-@media(max-width:1280px) {
-    .RelatedProducts {
-        height: 70vh;
-    }
-
-    .RelatedProducts h1 {
-        font-size: 40px;
-    }
-
-    .RelatedProducts hr {
-        width: 160px;
-        height: 4px;
-    }
-    .Realated {
-        gap: 20px;
-        margin-top: 30px;
-    }
-}
-@media(max-width:1024px) {
-   
-    .RelatedProducts h1 {
-        font-size: 30px;
-    }
-
-    .RelatedProducts hr {
-        width: 120px;
-        height: 3px;
-    }
-    .Realated {
-        gap: 15px;
-        margin-top: 20px;
-    }
-}
-@media(max-width:800px) {
-    .RelatedProducts {
-        height: 40vh;
-        gap: 6px;
-    }
-
-    .RelatedProducts h1 {
-        font-size: 20px;
-    }
-
-    .RelatedProducts hr {
-        width: 100px;
-    }
-    .Realated {
-        gap: 5px;
-    }
-}
-@media(max-width:500px) {
-    .RelatedProducts {
-        height: 90vh;
-    }
-
-    .Realated {
-        gap: 10px;
-       display: grid;
-       grid-template-columns: 1fr 1fr;
-    }
+    grid-template-columns: 1fr 1fr;
+  }
 }

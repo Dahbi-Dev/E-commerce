@@ -61,6 +61,7 @@ export default function ProductDisplay(props) {
           <span>Tags :</span>Modern, Latest
         </p>
       </div>
+     
     </div>
   );
 }

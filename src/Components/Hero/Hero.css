@@ -55,6 +55,8 @@
     font-size: 22px;
     font-weight: 500;
     padding: 20px ;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .hero-right {
