@@ -43,13 +43,13 @@ function Navbar() {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate('/');
+    navigate("/");
   };
-  
+
   return (
     <div className="navbar">
       <div onClick={handleNavigate} className="nav-logo">
-        <img  src={Logo_icon} alt="logo_icon" />
+        <img src={Logo_icon} alt="logo_icon" />
         <p>SHOPLONG</p>
       </div>
       <img
@@ -85,9 +85,21 @@ function Navbar() {
         </li>
       </ul>
       <div className="nav-login-cart">
-        <Link className="link" to="/login">
-          <button>Login</button>
-        </Link>
+        {localStorage.getItem("auth-token") ? (
+          <button
+            onClick={() => {
+              localStorage.removeItem("auth-token");
+              window.location.replace("/");
+            }}
+          >
+            Logout
+          </button>
+        ) : (
+          <Link className="link" to="/login">
+            <button>Login</button>
+          </Link>
+        )}
+
         <Link className="link" to="/cart">
           <img src={Cart_icon} alt="cart_icon" />
         </Link>
