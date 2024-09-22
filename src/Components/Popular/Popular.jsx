@@ -7,7 +7,7 @@ import { useEffect } from "react";
 const Popular = () => {
   const [data_product, setData_product] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:4000/popularwomen")
+    fetch("https://backend-ecommerce-gibj.onrender.com/popularwomen")
       .then((response) => response.json())
       .then((data) => setData_product(data));
   }, []);

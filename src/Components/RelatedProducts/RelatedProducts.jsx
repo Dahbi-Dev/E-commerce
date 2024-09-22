@@ -7,7 +7,7 @@ export default function RelatedProducts({ category }) {
 
   useEffect(() => {
     if (category) {
-      fetch(`http://localhost:4000/relatedproduct/${category}`)
+      fetch(`https://backend-ecommerce-gibj.onrender.com/relatedproduct/${category}`)
         .then((response) => response.json())
         .then((data) => setData_product(data))
         .catch((error) =>

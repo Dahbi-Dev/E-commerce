@@ -7,7 +7,7 @@ import { useEffect } from "react";
 export default function NewCollection() {
   const [new_collection, setNew_collection] = useState([]);
   useEffect (() => {
-     fetch("http://localhost:4000/newCollection")
+     fetch("https://backend-ecommerce-gibj.onrender.com/newCollection")
       .then((response) => response.json())
       .then((data) =>  setNew_collection(data));
   }, []);
