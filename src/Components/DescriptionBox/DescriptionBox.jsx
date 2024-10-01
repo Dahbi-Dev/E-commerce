@@ -1,6 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./DescriptionBox.css";
+
 export default function DescriptionBox() {
+  const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchDescription = async () => {
+      try {
+        const response = await fetch(
+          "https://backend-ecommerce-gibj.onrender.com/get-product-description"
+        ); // Update this URL to your actual endpoint
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setDescription(data.description); // Assuming the response structure has 'description'
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDescription();
+  }, []); // Empty dependency array ensures this runs once on component mount
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error fetching description: {error}</p>;
+
   return (
     <div className="descriptionbox">
       <div className="descriptionbox-navigator">
@@ -8,24 +37,7 @@ export default function DescriptionBox() {
         <div className="descriptionbox-nav-box fade">Reviews (122)</div>
       </div>
       <div className="descriptionbox-description">
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste dolore
-          vel, impedit cum similique eos amet cumque a officiis necessitatibus
-          obcaecati quos voluptatibus fugiat, deserunt id aut vitae praesentium
-          harum. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste
-          dolore vel, impedit cum similique eos amet cumque a officiis
-          necessitatibus obcaecati quos voluptatibus fugiat, deserunt id aut
-          vitae praesentium harum.
-        </p>
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam
-          asperiores, sequi facere at cumque nulla adipisci voluptatum suscipit,
-          excepturi hic accusantium debitis necessitatibus dolor harum quod rem
-          doloremque nihil et. Lorem, ipsum dolor sit amet consectetur
-          adipisicing elit. Nam asperiores, sequi facere at cumque nulla
-          adipisci voluptatum suscipit, excepturi hic accusantium debitis
-          necessitatibus dolor harum quod rem doloremque nihil et.
-        </p>
+        <p>{description}</p>
       </div>
     </div>
   );

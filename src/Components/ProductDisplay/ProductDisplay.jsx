@@ -7,6 +7,9 @@ import { ShopContext } from "../../Context/shopContext";
 export default function ProductDisplay(props) {
   const { product } = props;
   const { addToCart} = useContext(ShopContext);
+
+
+  
   return (
     <div className="productdisplay">
       <div className="productdisplay-left">
