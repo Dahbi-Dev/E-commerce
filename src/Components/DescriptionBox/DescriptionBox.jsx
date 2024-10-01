@@ -1,34 +1,23 @@
 import React, { useEffect, useState } from "react";
 import "./DescriptionBox.css";
 
-export default function DescriptionBox() {
-  const [description, setDescription] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+export default function DescriptionBox({ productId }) {
+  const [productDetails, setProductDetails] = useState(null);
+
+  // Fetch product details from the server
+  const fetchProductDetails = async () => {
+    await fetch(`https://backend-ecommerce-gibj.onrender.com/product/${productId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setProductDetails(data); // Set the fetched product details
+      });
+  };
 
   useEffect(() => {
-    const fetchDescription = async () => {
-      try {
-        const response = await fetch(
-          "https://backend-ecommerce-gibj.onrender.com/get-product-description"
-        ); // Update this URL to your actual endpoint
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setDescription(data.description); // Assuming the response structure has 'description'
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDescription();
-  }, []); // Empty dependency array ensures this runs once on component mount
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error fetching description: {error}</p>;
+    if (productId) {
+      fetchProductDetails();
+    }
+  }, [productId]);
 
   return (
     <div className="descriptionbox">
@@ -37,7 +26,11 @@ export default function DescriptionBox() {
         <div className="descriptionbox-nav-box fade">Reviews (122)</div>
       </div>
       <div className="descriptionbox-description">
-        <p>{description}</p>
+        {productDetails ? (
+          <p>{productDetails.description}</p> // Display the fetched description
+        ) : (
+          <p>Loading...</p> // Show loading message while fetching
+        )}
       </div>
     </div>
   );
