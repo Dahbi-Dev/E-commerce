@@ -6,7 +6,13 @@ const Item = (props) => {
   return (
     <div className="item">
       <Link to={`/product/${props.id}`}>
-        <img onClick={window.scrollTo(0, 0)} src={props.image} alt="" />
+        {/* Check if images exist and images[0] is defined */}
+        <img
+        style={{borderRadius:'4px'}}
+          onClick={window.scrollTo(0, 0)}
+          src={props.images && props.images[0] ? props.images[0].url : "default-image-url.png"}
+          alt={props.name}
+        />
       </Link>
       <p>{props.name}</p>
       <div className="item-prices">

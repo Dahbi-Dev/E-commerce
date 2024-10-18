@@ -1,0 +1,351 @@
+/* Base container styles */
+.orders-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Overlay to dim the background */
+.confirmation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Confirmation window */
+.confirmation-window {
+  margin: 0 auto;
+
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  width: 90%;
+  text-align: center;
+}
+
+.confirmation-window p {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.confirmation-window button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+ 
+}
+
+.confirmation-window .confirm-btn {
+  background-color: #ff4d4f;
+  color: white;
+  margin: 10px;
+}
+
+.confirmation-window .confirm-btn:hover {
+  background-color: #ff7875;
+}
+
+.confirmation-window .cancel-btn {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.confirmation-window .cancel-btn:hover {
+  background-color: #e0e0e0;
+}
+
+/* Heading styles */
+.orders-container h1 {
+  color: #333;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin-bottom: 1.5rem;
+}
+.order-head.dark-mode {
+  color: #fff;
+}
+
+/* Button styles */
+.button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.print-all-button {
+  composes: button-base;
+  background-color: #007bff;
+  color: white;
+  width: fit-content;
+  padding: 8px;
+  margin: 5px;
+  border: 0px solid white;
+  border-radius: 5px;
+}
+.print-order-button {
+  background-color: #007bff;
+  color: white;
+  width: fit-content;
+  padding: 8px;
+  margin: 5px;
+  border: 0px solid white;
+  border-radius: 5px;
+}
+
+.print-all-button:hover,
+.print-order-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.delete-order-button {
+  composes: button-base;
+  background-color: #dc3545;
+  color: white;
+  width: fit-content;
+  padding: 8px;
+  margin: 5px;
+  border: 0px solid white;
+  border-radius: 5px;
+}
+
+.delete-order-button:hover {
+  background-color: #c82333;
+  transform: translateY(-1px);
+}
+
+.address-toggle-button {
+  composes: button-base;
+  background-color: #6c757d;
+  color: white;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 8px;
+  margin: 5px;
+  border: 0px solid white;
+  border-radius: 5px;
+}
+
+.address-toggle-button:hover {
+  background-color: #5a6268;
+}
+
+/* Filter section */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-dropdown {
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  background-color: #333;
+  color: #fff;
+  border-radius: 0.375rem;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  min-width: 150px;
+}
+
+/* Warning message */
+.warning-message {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  margin-bottom: 1.5rem;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
+/* Orders grid */
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
+  gap: 1.5rem;
+}
+
+/* Order card */
+.order-card {
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Order header */
+.order-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
+  color: #6c757d;
+}
+
+/* Order item */
+.order-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 1rem;
+}
+
+.product-image {
+  width: clamp(50px, 15vw, 70px);
+  height: clamp(65px, 20vw, 85px);
+  object-fit: cover;
+  border-radius: 0.375rem;
+}
+
+.item-details {
+  font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
+/* Order info */
+.order-info {
+  display: grid;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
+.payment-status {
+  font-weight: 600;
+}
+
+.payment-status.paid {
+  color: #198754;
+}
+
+.payment-status.unpaid {
+  color: #dc3545;
+}
+
+.delivery-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Address section */
+.order-address {
+  margin-top: 1rem;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
+/* No orders message */
+.no-orders {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: #6c757d;
+}
+
+/* Loading and error messages */
+.loading-message,
+.error-message {
+  color: #333;
+  text-align: center;
+  padding: 2rem;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+}
+.loading-message.dark-mode {
+  color: #fff;
+}
+
+.error-message {
+  color: #dc3545;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+  .orders-container {
+    padding: 1rem;
+  }
+
+  .filters {
+    flex-direction: column;
+  }
+
+  .filter-dropdown {
+    width: 100%;
+  }
+
+  .print-all-button,
+  .print-order-button,
+  .delete-order-button {
+    width: 100%;
+  }
+
+  .order-header {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-item {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .product-image {
+    margin: 0 auto;
+  }
+
+  .item-details {
+    text-align: left;
+  }
+
+  .order-info {
+    text-align: center;
+  }
+}
+
+/* Print styles */
+@media print {
+  .filters,
+  .print-all-button,
+  .print-order-button,
+  .delete-order-button,
+  .address-toggle-button {
+    display: none;
+  }
+
+  .order-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+}

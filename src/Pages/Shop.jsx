@@ -4,6 +4,8 @@ import NewCollection from '../Components/NewCollection/NewCollection';
 import NewsLetter from '../Components/NewsLetter/NewsLetter';
 import Offers from '../Components/Offers/Offers';
 import Popular from '../Components/Popular/Popular';
+import CookieConsent from '../Components/CookieConsent/CookieConsent';
+
 
 const Shop = () => {
     return (
@@ -13,6 +15,7 @@ const Shop = () => {
            <Offers />
            <NewCollection />
            <NewsLetter />
+           <CookieConsent />
         </div>
     );
 }

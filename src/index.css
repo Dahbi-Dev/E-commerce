@@ -4,6 +4,9 @@
 
 
 
-body{
-    font-family: 'poppins';
-}
+body {
+    box-sizing: border-box;
+    padding: 0px;
+    font-family: "Poppins", sans-serif;
+  }
+  

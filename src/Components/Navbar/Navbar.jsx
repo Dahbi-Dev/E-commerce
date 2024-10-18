@@ -1,32 +1,58 @@
-import React, { useContext, useRef, useState, useEffect } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-import "./Navbar.css";
-import Logo_icon from "../Assets/logo.png";
-import Cart_icon from "../Assets/cart_icon.png";
+import React, { useContext, useRef, useState, useEffect, useCallback } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
+import { useTranslation } from 'react-i18next';
 import { ShopContext } from "../../Context/shopContext";
-import mav_dropdown from "../Assets/nav_dropdown.png";
+import { useTheme } from '../ThemeProvider/ThemeProvider';
+import Cart_icon from "../Assets/cart_icon.png";
+import "./Navbar.css";
 
 function Navbar() {
+  const { isDarkMode, toggleTheme } = useTheme();
   const { getTotalCartItems } = useContext(ShopContext);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
   const [menu, setMenu] = useState("shop");
-  const menuRef = useRef();
+  const [logos, setLogos] = useState([]);
+  const [logoUrl, setLogoUrl] = useState("");
+  const [logoName, setLogoName] = useState("");
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const dropdown_toggle = (e) => {
-    menuRef.current.classList.toggle("nav-menu-visible");
-    e.target.classList.toggle("open");
+  const sidebarRef = useRef();
+  const toggleRef = useRef();
+
+  const api = process.env.REACT_APP_API_URL
+
+
+  const toggleSidebar = () => {
+    setIsSidebarVisible((prev) => !prev);
   };
 
-  const closeMenu = () => {
-    menuRef.current.classList.remove("nav-menu-visible");
-  };
+  const handleClickOutside = useCallback((event) => {
+    if (
+      sidebarRef.current &&
+      !sidebarRef.current.contains(event.target) &&
+      !toggleRef.current.contains(event.target)
+    ) {
+      setIsSidebarVisible(false);
+    }
+  }, []);
 
-  const handleMenuClick = (menuName) => {
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
+  const handleMenuClick = useCallback((menuName) => {
     setMenu(menuName);
-    closeMenu(); // Close the menu after selecting an item
-  };
+    setIsSidebarVisible(false);
+  }, []);
 
-  // Update the menu state based on the current path
   useEffect(() => {
     const path = location.pathname;
     if (path.includes("/mens")) {
@@ -39,71 +65,131 @@ function Navbar() {
       setMenu("shop");
     }
   }, [location.pathname]);
-  // eslint-disable-next-line no-undef
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchLogos = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`${api}/logos`);
+        if (!response.ok) {
+          console.log("Network response was not ok");
+        }
+        const data = await response.json();
+        setLogos(data);
+
+        if (data.length > 0) {
+          setLogoUrl(data[0].url);
+          setLogoName(data[0].name);
+        } else {
+          setLogoUrl("path/to/default/logo.png");
+          setLogoName("SHOPLUX");
+        }
+      } catch (error) {
+        console.error("Error fetching logos:", error);
+        console.log("Failed to load logos.");
+        setLogoUrl("path/to/default/logo.png");
+        setLogoName("SHOPLUX");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLogos();
+  }, []);
 
   const handleNavigate = () => {
     navigate("/");
   };
 
-  return (
-    <div className="navbar">
-      <div onClick={handleNavigate} className="nav-logo">
-        <img src={Logo_icon} alt="logo_icon" />
-        <p>SHOPLONG</p>
-      </div>
-      <img
-        className="nav-dropdown"
-        onClick={dropdown_toggle}
-        src={mav_dropdown}
-        alt="dropdown_icon"
-      />
-      <ul ref={menuRef} className="nav-menu">
-        <li onClick={() => handleMenuClick("shop")}>
-          <Link className="link" to="/">
-            Shop
-          </Link>
-          {menu === "shop" && <hr />}
-        </li>
-        <li onClick={() => handleMenuClick("mens")}>
-          <Link className="link" to="/mens">
-            Men
-          </Link>
-          {menu === "mens" && <hr />}
-        </li>
-        <li onClick={() => handleMenuClick("womens")}>
-          <Link className="link" to="/womens">
-            Women
-          </Link>
-          {menu === "womens" && <hr />}
-        </li>
-        <li onClick={() => handleMenuClick("kids")}>
-          <Link className="link" to="/kids">
-            Kids
-          </Link>
-          {menu === "kids" && <hr />}
-        </li>
-      </ul>
-      <div className="nav-login-cart">
-        {localStorage.getItem("auth-token") ? (
-          <button
-            onClick={() => {
-              localStorage.removeItem("auth-token");
-              window.location.replace("/");
-            }}
-          >
-            Logout
-          </button>
-        ) : (
-          <Link className="link" to="/login">
-            <button>Login</button>
-          </Link>
-        )}
+  const handleLogout = () => {
+    localStorage.removeItem("auth-token");
+    window.location.replace("/");
+  };
 
-        <Link className="link" to="/cart">
-          <img src={Cart_icon} alt="cart_icon" />
-        </Link>
-        <div className="nav-cart-count">{getTotalCartItems()}</div>
+  const isAuthenticated = !!localStorage.getItem("auth-token");
+
+  return (
+    <div className={`navbar ${isDarkMode ? 'dark-mode' : ''}`}>
+      <div className="navbar-content">
+        <div
+          ref={toggleRef}
+          className={`nav-toggle ${isSidebarVisible ? "active" : ""}`}
+          onClick={toggleSidebar}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div onClick={handleNavigate} className="nav-logo">
+          {loading ? (
+            <p>{t('loading')}</p>
+          ) : (
+            <>
+              <img src={logoUrl} alt={logoName} />
+              <p>{logoName}</p>
+            </>
+          )}
+        </div>
+        <div className={`nav-menu-container ${isSidebarVisible ? "visible" : ""}`}>
+          <ul
+            ref={sidebarRef}
+            className="nav-menu"
+          >
+            {isAuthenticated && (
+              <li onClick={() => handleMenuClick("profile")}>
+                <Link className="link" to="/profile">
+                  {t('profile')}
+                </Link>
+                {menu === "profile" && <hr />}
+              </li>
+            )}
+            <li onClick={() => handleMenuClick("mens")}>
+              <Link className="link" to="/mens">
+                {t('men')}
+              </Link>
+              {menu === "mens" && <hr />}
+            </li>
+            <li onClick={() => handleMenuClick("womens")}>
+              <Link className="link" to="/womens">
+                {t('women')}
+              </Link>
+              {menu === "womens" && <hr />}
+            </li>
+            <li onClick={() => handleMenuClick("kids")}>
+              <Link className="link" to="/kids">
+                {t('kids')}
+              </Link>
+              {menu === "kids" && <hr />}
+            </li>
+            <li className="nav-auth-item">
+              {isAuthenticated ? (
+                <button onClick={handleLogout}>{t('logout')}</button>
+              ) : (
+                <Link className="link" to="/login">
+                  <button>{t('login')}</button>
+                </Link>
+              )}
+            </li>
+          </ul>
+        </div>
+        <div className="nav-login-cart">
+          <div className="nav-auth-desktop">
+            {isAuthenticated ? (
+              <button onClick={handleLogout}>{t('logout')}</button>
+            ) : (
+              <Link className="link" to="/login">
+                <button>{t('login')}</button>
+              </Link>
+            )}
+          </div>
+          <button onClick={toggleTheme} className="theme-toggle">
+            {isDarkMode ? <MdLightMode /> : <MdDarkMode />}
+          </button>
+          <Link className="link" to="/cart">
+            <img src={Cart_icon} alt="Cart Icon" />
+          </Link>
+          <div className="nav-cart-count">{getTotalCartItems()}</div>
+        </div>
       </div>
     </div>
   );

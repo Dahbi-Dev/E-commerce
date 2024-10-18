@@ -1,11 +1,20 @@
+.offers-container {
+    display: flex;
+    flex-direction: column; /* Stack offers vertically */
+    gap: 20px; /* Space between offers */
+    width: 100%; /* Full width for the container */
+}
+
 .offers {
     width: 65%;
     height: 60vh;
     display: flex;
     margin: auto;
-    padding:  120px;
+    padding: 120px;
     margin-bottom: 150px;
     background: linear-gradient(180deg, #fde1ff 0%, #e1ffea22 60%);
+    border-radius: 8px; /* Add border radius for rounded corners */
+    overflow: hidden; /* Prevent overflow from children */
 }
 
 .offers-left {
@@ -13,7 +22,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
 }
 
 .offers-left h1 {
@@ -39,7 +47,6 @@
     border: none;
     border-radius: 75px;
     cursor: pointer;
-
 }
 
 .offers-right {
@@ -48,14 +55,18 @@
     align-items: center;
     justify-content: flex-end;
     padding-top: 50px;
-
 }
 
+.offers-right img {
+    max-width: 100%; /* Ensure the image scales responsively */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Media queries for responsiveness */
 @media(max-width:1280px) {
     .offers {
         padding: 0px 80px;
         margin-bottom: 120px;
-
     }
 
     .offers-left h1 {
@@ -75,18 +86,17 @@
         height: 60px;
         font-size: 18px;
     }
+
     .offers-right {
         padding-top: 30px;
     }
-
-
 }
+
 @media(max-width:1024px) {
     .offers {
         padding: 0px 60px;
         margin-bottom: 80px;
         height: 50vh;
-
     }
 
     .offers-left h1 {
@@ -106,18 +116,16 @@
         height: 50px;
         font-size: 16px;
     }
+
     .offers-right {
         padding-top: 20px;
     }
-
-
 }
+
 @media(max-width:800px) {
     .offers {
         margin-bottom: 50px;
-        width: fit-content;
-       
-
+        width: fit-content; /* Adjust width to content */
     }
 
     .offers-left h1 {
@@ -128,12 +136,10 @@
     .offers-left p {
         max-width: 200px;
         text-align: center;
-
     }
 
     .offers-right img {
         width: 180px;
-      
     }
 
     .offers-left button {
@@ -141,15 +147,12 @@
         height: 30px;
         font-size: 13px;
     }
-   
 }
+
 @media(max-width:500px) {
     .offers {
         margin-bottom: 50px;
-       height: 25vh;
-    
-
-
+        height: 25vh;
     }
 
     .offers-left h1 {
@@ -170,5 +173,4 @@
         font-size: 10px;
         margin-top: 12px;
     }
-   
 }
