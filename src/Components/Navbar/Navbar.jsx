@@ -1,9 +1,15 @@
-import React, { useContext, useRef, useState, useEffect, useCallback } from "react";
+import React, {
+  useContext,
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import { ShopContext } from "../../Context/shopContext";
-import { useTheme } from '../ThemeProvider/ThemeProvider';
+import { useTheme } from "../ThemeProvider/ThemeProvider";
 import Cart_icon from "../Assets/cart_icon.png";
 import "./Navbar.css";
 
@@ -14,7 +20,7 @@ function Navbar() {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const [menu, setMenu] = useState("shop");
+  const [menu, setMenu] = useState("profile");
   const [logos, setLogos] = useState([]);
   const [logoUrl, setLogoUrl] = useState("");
   const [logoName, setLogoName] = useState("");
@@ -24,8 +30,7 @@ function Navbar() {
   const sidebarRef = useRef();
   const toggleRef = useRef();
 
-  const api = process.env.REACT_APP_API_URL
-
+  const api = process.env.REACT_APP_API_URL;
 
   const toggleSidebar = () => {
     setIsSidebarVisible((prev) => !prev);
@@ -61,8 +66,12 @@ function Navbar() {
       setMenu("womens");
     } else if (path.includes("/kids")) {
       setMenu("kids");
+    } else if (path.includes("/kids")) {
+      setMenu("kids");
+    } else if (path.includes("/logout")) {
+      setMenu("login");
     } else {
-      setMenu("shop");
+      setMenu("profile");
     }
   }, [location.pathname]);
 
@@ -82,23 +91,26 @@ function Navbar() {
           setLogoName(data[0].name);
         } else {
           setLogoUrl("path/to/default/logo.png");
-          setLogoName("SHOPLUX");
+          setLogoName("loading");
         }
       } catch (error) {
         console.error("Error fetching logos:", error);
         console.log("Failed to load logos.");
         setLogoUrl("path/to/default/logo.png");
-        setLogoName("SHOPLUX");
+        setLogoName("loading");
       } finally {
         setLoading(false);
       }
     };
 
     fetchLogos();
-  }, []);
+  }, [api]);
 
   const handleNavigate = () => {
     navigate("/");
+  };
+  const handleLogIn = () => {
+    setIsSidebarVisible(false);
   };
 
   const handleLogout = () => {
@@ -109,7 +121,7 @@ function Navbar() {
   const isAuthenticated = !!localStorage.getItem("auth-token");
 
   return (
-    <div className={`navbar ${isDarkMode ? 'dark-mode' : ''}`}>
+    <div className={`navbar ${isDarkMode ? "dark-mode" : ""}`}>
       <div className="navbar-content">
         <div
           ref={toggleRef}
@@ -122,7 +134,7 @@ function Navbar() {
         </div>
         <div onClick={handleNavigate} className="nav-logo">
           {loading ? (
-            <p>{t('loading')}</p>
+            <p>{t("loading")}</p>
           ) : (
             <>
               <img src={logoUrl} alt={logoName} />
@@ -130,43 +142,42 @@ function Navbar() {
             </>
           )}
         </div>
-        <div className={`nav-menu-container ${isSidebarVisible ? "visible" : ""}`}>
-          <ul
-            ref={sidebarRef}
-            className="nav-menu"
-          >
+        <div
+          className={`nav-menu-container ${isSidebarVisible ? "visible" : ""}`}
+        >
+          <ul ref={sidebarRef} className="nav-menu">
             {isAuthenticated && (
               <li onClick={() => handleMenuClick("profile")}>
                 <Link className="link" to="/profile">
-                  {t('profile')}
+                  {t("profile")}
                 </Link>
                 {menu === "profile" && <hr />}
               </li>
             )}
             <li onClick={() => handleMenuClick("mens")}>
               <Link className="link" to="/mens">
-                {t('men')}
+                {t("men")}
               </Link>
               {menu === "mens" && <hr />}
             </li>
             <li onClick={() => handleMenuClick("womens")}>
               <Link className="link" to="/womens">
-                {t('women')}
+                {t("women")}
               </Link>
               {menu === "womens" && <hr />}
             </li>
             <li onClick={() => handleMenuClick("kids")}>
               <Link className="link" to="/kids">
-                {t('kids')}
+                {t("kids")}
               </Link>
               {menu === "kids" && <hr />}
             </li>
             <li className="nav-auth-item">
               {isAuthenticated ? (
-                <button onClick={handleLogout}>{t('logout')}</button>
+                <button onClick={handleLogout}>{t("logout")}</button>
               ) : (
                 <Link className="link" to="/login">
-                  <button>{t('login')}</button>
+                  <button onClick={handleLogIn}>{t("login")}</button>
                 </Link>
               )}
             </li>
@@ -175,10 +186,10 @@ function Navbar() {
         <div className="nav-login-cart">
           <div className="nav-auth-desktop">
             {isAuthenticated ? (
-              <button onClick={handleLogout}>{t('logout')}</button>
+              <button onClick={handleLogout}>{t("logout")}</button>
             ) : (
-              <Link className="link" to="/login">
-                <button>{t('login')}</button>
+              <Link className="link" to="/login" >
+                <button >{t("login")}</button>
               </Link>
             )}
           </div>

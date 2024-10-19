@@ -29,12 +29,12 @@ const Footer = () => {
           setFooterLogoName(data[0].name);
         } else {
           setFooterLogoUrl("path/to/default/logo.png");
-          setFooterLogoName("SHOOPLUX");
+          setFooterLogoName("loading");
         }
       } catch (error) {
         console.error(error);
         setFooterLogoUrl("path/to/default/logo.png");
-        setFooterLogoName("SHOOPLUX");
+        setFooterLogoName("Loading");
       }
     };
 
@@ -77,7 +77,7 @@ const Footer = () => {
     fetchLogos();
     fetchFooterTextItems();
     fetchFooterIconItems();
-  }, []);
+  }, [api]);
 
   return (
     <div className={`footer ${isDarkMode ? 'dark-mode' : ''}`}>
