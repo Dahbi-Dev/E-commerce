@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./CSS/LoginSignup.css";
 import { useTheme } from "../Components/ThemeProvider/ThemeProvider"; // Adjust the import path as needed
+import './CSS/LoginSignup.css';
 
 // Spinner Component
 const Spinner = () => (
@@ -20,27 +20,39 @@ function LoginSignUp() {
     password: "",
     email: "",
   });
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState("");
   const api = process.env.REACT_APP_API_URL;
 
-  // Effect to simulate initial loading
   useEffect(() => {
     const loadData = async () => {
-      // Simulating an API call or fetching initial data
-      await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate a 500ms delay
-      setLoading(false); // Stop loading after the simulated delay
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      setLoading(false);
     };
-
     loadData();
-  }, []); // Runs once when component mounts
+  }, []);
+
+  const validatePassword = (password) => {
+    const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const mediumRegex = /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$/;
+
+    if (strongRegex.test(password)) {
+      setPasswordStrength("strong");
+    } else if (mediumRegex.test(password)) {
+      setPasswordStrength("medium");
+    } else {
+      setPasswordStrength("weak");
+    }
+  };
 
   const login = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
     if (!formData.email || !formData.password) {
-      alert("Please fill in all fields");
+      setError("Please fill in all fields");
       return;
     }
-    setLoading(true); // Start loading for API request
+    setLoading(true);
     console.log("Login Function", formData);
     let responseData;
 
@@ -58,11 +70,10 @@ function LoginSignUp() {
         localStorage.setItem("auth-token", responseData.token);
         window.location.replace("/");
       } else {
-        alert(responseData.errors);
+        setError(responseData.errors);
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("An error occurred during login. Please try again.");
       setError("An error occurred during login. Please try again.");
     } finally {
       setLoading(false);
@@ -70,12 +81,16 @@ function LoginSignUp() {
   };
 
   const signUp = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
     if (!formData.username || !formData.email || !formData.password) {
-      alert("Please fill in all fields");
+      setError("Please fill in all fields");
       return;
     }
-    setLoading(true); // Start loading for API request
+    if (passwordStrength !== "strong") {
+      setError("Please use a stronger password");
+      return;
+    }
+    setLoading(true);
     console.log("Sign Up Function", formData);
     let responseData;
 
@@ -93,28 +108,33 @@ function LoginSignUp() {
         localStorage.setItem("auth-token", responseData.token);
         window.location.replace("/");
       } else {
-        alert(responseData.errors);
+        setError(responseData.errors);
       }
     } catch (error) {
       console.error("Signup error:", error);
-      alert("An error occurred during sign up. Please try again.");
+      setError("An error occurred during sign up. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   const changeHandler = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (name === "password") {
+      validatePassword(value);
+    }
   };
 
   return (
     <div className={`loginSignup ${isDarkMode ? "dark-mode" : ""}`}>
       <div className="loginSignup-container">
-        {loading ? ( // Show loading spinner on initial load
+        {loading ? (
           <Spinner />
         ) : (
           <>
             <h1>{state}</h1>
+            {error && <div className="error-message">{error}</div>}
             <form onSubmit={state === "Login" ? login : signUp}>
               <div className="loginSignup-fields">
                 {state === "Sign Up" && (
@@ -135,16 +155,29 @@ function LoginSignUp() {
                   name="email"
                   required
                 />
-                <input
-                  value={formData.password}
-                  onChange={changeHandler}
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  required
-                />
+                <div className="password-field">
+                  <input
+                    value={formData.password}
+                    onChange={changeHandler}
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    name="password"
+                    required
+                  />
+                  <span
+                    className="password-toggle"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? "Hide" : "Show"}
+                  </span>
+                </div>
+                {state === "Sign Up" && (
+                  <div className={`password-strength ${passwordStrength}`}>
+                    Password strength: {passwordStrength}
+                  </div>
+                )}
               </div>
-              <button type="submit">
+              <button type="submit" disabled={loading}>
                 {loading ? <Spinner /> : "Continue"}
               </button>
             </form>
@@ -152,13 +185,7 @@ function LoginSignUp() {
               <>
                 <p className="loginSignup-login">
                   Already have an account?{" "}
-                  <span
-                    onClick={() => {
-                      setState("Login");
-                    }}
-                  >
-                    Login here
-                  </span>
+                  <span onClick={() => setState("Login")}>Login here</span>
                 </p>
                 <div className="loginSignup-agree">
                   <input type="checkbox" name="terms" id="terms" required />
@@ -170,13 +197,7 @@ function LoginSignUp() {
             ) : (
               <p className="loginSignup-login">
                 Create an account?{" "}
-                <span
-                  onClick={() => {
-                    setState("Sign Up");
-                  }}
-                >
-                  Click here
-                </span>
+                <span onClick={() => setState("Sign Up")}>Click here</span>
               </p>
             )}
           </>
